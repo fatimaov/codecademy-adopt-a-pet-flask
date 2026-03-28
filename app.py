@@ -21,8 +21,9 @@ def animals(pet_type):
   for index, pet in enumerate(pets[pet_type]):
     html += f'<li><a href="/animals/{pet_type}/{index}">{pet["name"]}</a></li>'
   html += '</ul>'
+  go_home = '<a href="/">Home</a>'
 
-  return html
+  return html + go_home
 
 @app.route('/animals/<pet_type>/<int:pet_id>')
 def pet(pet_type, pet_id):
@@ -36,5 +37,8 @@ def pet(pet_type, pet_id):
     <li>Age: {pet["age"]}</li>
   </ul>
   '''
-
-  return pet_name + pet_info
+  go_home = '<a href="/">Home</a>'
+  go_back = f'<a href="/animals/{pet_type}">Go back</a>'
+  navigation = f'{go_home}  {go_back}'
+  
+  return pet_name + pet_info + navigation
