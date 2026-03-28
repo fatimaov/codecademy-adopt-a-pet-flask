@@ -1,4 +1,5 @@
 from flask import Flask
+from helper import pets
 
 app = Flask(__name__)
 
@@ -16,5 +17,8 @@ def index():
 
 @app.route('/animals/<pet_type>')
 def animals(pet_type):
-  html = f'<h1>List of {pet_type}</h1>'
+  html = f'<h1>List of {pet_type}</h1> <ul>'
+  for pet in pets[pet_type]:
+    html += f'<li>{pet["name"]}</li>'
+  html += '</ul>'
   return html
