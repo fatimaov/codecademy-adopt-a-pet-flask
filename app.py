@@ -17,8 +17,24 @@ def index():
 
 @app.route('/animals/<pet_type>')
 def animals(pet_type):
-  html = f'<h1>List of {pet_type}</h1> <ul>'
-  for pet in pets[pet_type]:
-    html += f'<li>{pet["name"]}</li>'
+  html = f'<h1>List of {pet_type}</h1><ul>'
+  for index, pet in enumerate(pets[pet_type]):
+    html += f'<li><a href="/animals/{pet_type}/{index}">{pet["name"]}</a></li>'
   html += '</ul>'
+
   return html
+
+@app.route('/animals/<pet_type>/<int:pet_id>')
+def pet(pet_type, pet_id):
+  pet = pets[pet_type][pet_id]
+  pet_name = f'<h1>{pet["name"]}</h1>'
+  pet_info = f'''
+  <img src="{pet["url"]}" />
+  <p>{pet["description"]}</p>
+  <ul>
+    <li>Breed: {pet["breed"]}</li>
+    <li>Age: {pet["age"]}</li>
+  </ul>
+  '''
+
+  return pet_name + pet_info
